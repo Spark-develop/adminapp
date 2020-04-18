@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "212844295",
+    "firebase_url": "https://gram-inc.firebaseio.com",
+    "project_id": "gram-inc",
+    "storage_bucket": "gram-inc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212844295:android:7b1b12c675c07614ce0fa2",
+        "android_client_info": {
+          "package_name": "com.example.adminproto1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "212844295-eeuj21rcpivrt7gu59a1ni2a9lokeols.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ0gmoqlFiUG_X6FCNJ2ucfmZJLGDIT2c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "212844295-eeuj21rcpivrt7gu59a1ni2a9lokeols.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212844295:android:bf30edf59269cd4ace0fa2",
+        "android_client_info": {
+          "package_name": "com.example.adminprotocol2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "212844295-eeuj21rcpivrt7gu59a1ni2a9lokeols.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ0gmoqlFiUG_X6FCNJ2ucfmZJLGDIT2c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "212844295-eeuj21rcpivrt7gu59a1ni2a9lokeols.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212844295:android:e3f2814454211ef6ce0fa2",
+        "android_client_info": {
+          "package_name": "com.example.proto2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "212844295-eeuj21rcpivrt7gu59a1ni2a9lokeols.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ0gmoqlFiUG_X6FCNJ2ucfmZJLGDIT2c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "212844295-eeuj21rcpivrt7gu59a1ni2a9lokeols.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
