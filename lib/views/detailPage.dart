@@ -1,6 +1,4 @@
-import 'package:adminproto1/models/local.dart';
 import 'package:adminproto1/views/assignEngineerList.dart';
-import 'package:adminproto1/views/engineerList.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +13,7 @@ class SecondRoute extends StatefulWidget {
 }
 
 class SecR extends State<SecondRoute> {
-  String _mo = "", _is = "", _engineerUid = "", _designation = "";
+  String _mo = "", _is = "", _engineerUid = "";
   bool _isAssigned = false;
 
   @override

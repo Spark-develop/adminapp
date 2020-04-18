@@ -12,7 +12,6 @@ class Ongoing extends StatefulWidget {
 class _Ongoing extends State<Ongoing> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Material(child: test(context));
   }
 

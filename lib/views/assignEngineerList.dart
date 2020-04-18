@@ -1,4 +1,3 @@
-import 'package:adminproto1/main.dart';
 import 'package:adminproto1/models/local.dart';
 import 'package:adminproto1/styles/theme/colorStyle.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
