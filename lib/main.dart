@@ -1,15 +1,19 @@
-import 'package:adminproto1/styles/theme/colorStyle.dart';
 import 'package:adminproto1/styles/widget/btn.dart';
 import 'package:adminproto1/styles/widget/no.dart';
 import 'package:adminproto1/views/callRequest.dart';
 import 'package:adminproto1/views/completeList.dart';
+import 'package:adminproto1/views/cupertinoStyle/mainPage.dart';
+import 'package:adminproto1/views/cupertinoStyle/newdesign.dart';
 import 'package:adminproto1/views/ongoing.dart';
+import 'package:adminproto1/views/reportView.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'models/local.dart';
 import 'views/engineerList.dart';
 
-void main() => runApp(MaterialApp(home: HomePage()));
+void main() =>
+    runApp(MaterialApp(debugShowCheckedModeBanner: false, home: HomePage()));
 
 class HomePage extends StatefulWidget {
   @override
@@ -29,6 +33,7 @@ class MainPage extends State<HomePage> {
     //       if (!snapshot.hasData) return new Text("There is no expense");
     //       snapshot.data.documents.map((doc) => doc = ds);
     // });
+
     return mainscrn();
   }
 
@@ -53,11 +58,15 @@ class MainPage extends State<HomePage> {
   Widget mainscrn() {
     return Scaffold(
       appBar: AppBar(
-        title: Text('connect'),
-        backgroundColor: bgColor,
+        title: Text(
+          'Lets Connect',
+          style: TextStyle(color: Colors.lightBlueAccent),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
         centerTitle: true,
       ),
-      backgroundColor: bgColor,
+      backgroundColor: Colors.white,
       body: StreamBuilder(
           stream: Firestore.instance.collectionGroup('calls').snapshots(),
           builder:
@@ -81,7 +90,7 @@ class MainPage extends State<HomePage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    GestureDetector(
+                    InkWell(
                       onTap: () {
                         Navigator.push(
                             context,
@@ -95,49 +104,55 @@ class MainPage extends State<HomePage> {
                         titleColor: Colors.red,
                       ),
                     ),
-                    Divider(
-                      color: Colors.grey,
-                      thickness: 3.0,
-                      height: 0,
-                    ),
+                    // Divider(
+                    //   color: Colors.black12,
+                    //   thickness: 3.0,
+                    //   height: 0,
+                    // ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      // mainAxisAlignment: MainAxisAlignment.,
                       children: <Widget>[
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Ongoing()));
-                          },
-                          child: StatsCounter(
-                            title: "onGoing",
-                            count: _onGoing,
-                            size: 150.0,
-                            titleColor: Colors.lightBlue,
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 2 - 20,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Ongoing()));
+                            },
+                            child: StatsCounter(
+                              title: "onGoing",
+                              count: _onGoing,
+                              size: 150.0,
+                              titleColor: Colors.lightBlue,
+                            ),
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => CompleteList()));
-                          },
-                          child: StatsCounter(
-                            title: "Completed",
-                            count: _completed,
-                            size: 150.0,
-                            titleColor: Colors.lightGreen,
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 2 - 20,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CompleteList()));
+                            },
+                            child: StatsCounter(
+                              title: "Completed",
+                              count: _completed,
+                              size: 150.0,
+                              titleColor: Colors.lightGreen,
+                            ),
                           ),
                         )
                       ],
                     ),
-                    Divider(
-                      color: Colors.grey,
-                      thickness: 3.0,
-                      height: 0,
-                    ),
+                    // Divider(
+                    //   color: Colors.black12,
+                    //   thickness: 3.0,
+                    //   height: 0,
+                    // ),
                     StreamBuilder(
                         stream: Firestore.instance
                             .collection('engineers')
@@ -162,7 +177,19 @@ class MainPage extends State<HomePage> {
                               },
                             );
                           }
-                        })
+                        }),
+                    IndicatorButton(
+                      indicationCount: 30,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ReportPage()));
+                      },
+                      height: 50.0,
+                      title: "Report",
+                    ),
+                   
                   ],
                 ),
               );

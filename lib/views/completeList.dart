@@ -35,24 +35,44 @@ class _CompleteList extends State<CompleteList> {
 
   getExpenseItems(AsyncSnapshot<QuerySnapshot> snapshot, BuildContext context) {
     return snapshot.data.documents
-        .map((doc) => new ListTile(
-              title: new Text(doc.data["model"]),
-              subtitle: new Text(doc.data["issue"].toString()),
-              trailing: Icon(
-                Icons.blur_on,
-                color: cs(doc.data["isAssigned"].toString()),
-              ),
-            //   onTap: () {
-            //     DocumentSnapshot ds = doc;
-            //     Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //             builder: (context) => SecondRoute(
-            //                   ds: ds,
-            //                 )));
-            //   },
-            // ))
-        ))
+        .map((doc) => new Card(
+            elevation: 6.0,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        new Text(
+                          doc.data["model"],
+                          style: TextStyle(color: Colors.black, fontSize: 16),
+                        ),
+                        // new Divider(),
+                        new Text(doc.data["issue"].toString(),
+                            style: TextStyle(color: Colors.grey, fontSize: 12)),
+                      ],
+                    ),
+                    Row(children: <Widget>[
+                      Icon(
+                        Icons.blur_on,
+                        color: cs(doc.data["isAssigned"].toString()),
+                      ),
+                    ]),
+                  ]),
+            )
+
+            // onTap: () {
+            //   DocumentSnapshot ds = doc;
+            //   Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //           builder: (context) => SecondRoute(
+            //                 ds: ds,
+            //               )));
+            // },
+            ))
         .toList();
   }
 

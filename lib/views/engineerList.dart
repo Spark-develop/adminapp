@@ -16,7 +16,7 @@ class _EngineerPage extends State<EngineerPage> {
   Widget build(BuildContext context) {
     return Material(
       child: Scaffold(
-        backgroundColor: bgColor,
+        backgroundColor: Colors.white,
         body: StreamBuilder(
             stream: Firestore.instance.collection('engineers').snapshots(),
             builder:
@@ -29,27 +29,49 @@ class _EngineerPage extends State<EngineerPage> {
   }
 
   getExpenseItems(AsyncSnapshot<QuerySnapshot> snapshot, BuildContext context) {
-      LocalDb.freeEngineers = snapshot.data.documents.where((test)=>test.data["isAssigned"]==false).length;
+    LocalDb.freeEngineers = snapshot.data.documents
+        .where((test) => test.data["isAssigned"] == false)
+        .length;
 
     return snapshot.data.documents
-        .map((doc) => new ListTile(
-              
-              title: new Text(doc.data["Name"],style: TextStyle(color: Colors.white),),
-              subtitle: new Text(doc.data["Designation"].toString(),style: TextStyle(color: Colors.grey)),
-              trailing: Icon(
-                Icons.blur_on,
-                color: cs(doc.data["isAssigned"].toString()),
+        .map((doc) => new Card(
+          elevation: 6.0,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+              Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    new Text(
+                      doc.data["Name"],
+                      style: TextStyle(color: Colors.black,fontSize: 16),
+                    ),
+                    // new Divider(),
+                    new Text(doc.data["Designation"].toString(),
+                        style: TextStyle(color: Colors.grey,fontSize: 12)),
+                  ],
               ),
-              // onTap: () {
-              //   DocumentSnapshot ds = doc;
-              //   Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //           builder: (context) => SecondRoute(
-              //                 ds: ds,
-              //               )));
-              // },
-            ))
+              Row(children: <Widget>[
+                  Icon(
+                    Icons.blur_on,
+                    color: cs(doc.data["isAssigned"].toString()),
+                  ),
+              ]),
+            ]),
+                )
+
+                // onTap: () {
+                //   DocumentSnapshot ds = doc;
+                //   Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //           builder: (context) => SecondRoute(
+                //                 ds: ds,
+                //               )));
+                // },
+                ))
         .toList();
   }
 
