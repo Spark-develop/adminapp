@@ -54,7 +54,7 @@ class SecR extends State<SecondRoute> {
     return Card(
       color: Colors.white,
       elevation: 5,
-      margin: EdgeInsets.symmetric(vertical:3,horizontal: 8),
+      margin: EdgeInsets.symmetric(vertical: 3, horizontal: 8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
@@ -143,7 +143,7 @@ class SecR extends State<SecondRoute> {
     return Card(
       color: Colors.white,
       elevation: 5,
-      margin: EdgeInsets.symmetric(vertical:3,horizontal: 8),
+      margin: EdgeInsets.symmetric(vertical: 3, horizontal: 8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
@@ -218,7 +218,7 @@ class SecR extends State<SecondRoute> {
     return Card(
       color: Colors.white,
       elevation: 5,
-      margin: EdgeInsets.symmetric(vertical:3,horizontal: 8),
+      margin: EdgeInsets.symmetric(vertical: 3, horizontal: 8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
@@ -228,130 +228,144 @@ class SecR extends State<SecondRoute> {
   }
 
   Widget assignCallWidget(DocumentSnapshot ds) {
-    return StreamBuilder(
-        stream: Firestore.instance
-            .collection('engineers')
-            .where('isAssigned', isEqualTo: true)
-            .snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData)
-            return Text("No records");
-          else {
-            if (!_isAssigned &&
-                !snapshot.data.documents
-                    .where((val) => val.documentID == _engineerUid)
-                    .isNotEmpty)
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Text(
-                    "Assign Call",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  Divider(
-                    color: Colors.black87,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 2.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Column(
-                          children: <Widget>[Text("Engineers")],
-                        ),
-                        Column(
-                          children: <Widget>[Text("Select a Engineer")],
-                        )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 10),
-                    child: RaisedButton(
-                      color: Colors.lightGreen,
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AssignEngineer(
-                                      ds: widget.ds,
-                                    )));
-                      },
-                      child: Text("Assign Call"),
-                    ),
-                  ),
-                ],
-              );
+    try {
+      return StreamBuilder(
+          stream: Firestore.instance
+              .collection('engineers')
+              .where('isAssigned', isEqualTo: true)
+              .snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData)
+              return Text("No records");
             else {
               if (!_isAssigned &&
                   !snapshot.data.documents
                       .where((val) => val.documentID == _engineerUid)
-                      .isNotEmpty)
-                      return Text("Error");
+                      .isNotEmpty) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Text(
+                      "Assign Call",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    Divider(
+                      color: Colors.black87,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 2.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Column(
+                            children: <Widget>[Text("Engineers")],
+                          ),
+                          Column(
+                            children: <Widget>[Text("Select a Engineer")],
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 10),
+                      child: RaisedButton(
+                        color: Colors.lightGreen,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AssignEngineer(
+                                        ds: widget.ds,
+                                      )));
+                        },
+                        child: Text("Assign Call"),
+                      ),
+                    ),
+                  ],
+                );
+              } 
+              else 
+              {
+                if (
+                    !snapshot.data.documents
+                        .where((val) => val.documentID == _engineerUid)
+                        .isNotEmpty)
+                         return Text("Error");
                 var r = snapshot.data.documents
                     .where((val) => val.documentID == _engineerUid)
                     .single;
 
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Text(
-                    "Assign Call",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  Divider(
-                    color: Colors.black87,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 2.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text("Name"),
-                            Text("Desgnation"),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(r.data["Name"]),
-                            Text(r.data["Designation"]),
-                          ],
-                        )
-                      ],
+                if (r.data.isEmpty) {
+                  return Text("No records");
+                }
+
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Text(
+                      "Assign Call",
+                      style: TextStyle(fontSize: 20),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 10),
-                    child: RaisedButton(
-                      color: Colors.redAccent,
-                      onPressed: () {
-                        CircularProgressIndicator();
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AssignEngineer(
-                                      ds: widget.ds,
-                                    )));
-                        r.reference.updateData({'isAssigned': false});
-                        ds.reference.updateData(
-                            {'CallAssignedTo': null, "isAssigned": false});
-                      },
-                      child: Text("Change Engineer"),
+                    Divider(
+                      color: Colors.black87,
                     ),
-                  ),
-                ],
-              );
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 2.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text("Name"),
+                              Text("Desgnation"),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(r.data["Name"]),
+                              Text(r.data["Designation"]),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 10),
+                      child: RaisedButton(
+                        color: Colors.redAccent,
+                        onPressed: () {
+                          CircularProgressIndicator();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AssignEngineer(
+                                        ds: widget.ds,
+                                        engiRef: r,
+                                      )));
+                          // r.reference.updateData({'isAssigned': false});
+                          // ds.reference.updateData(
+                          //     {'CallAssignedTo': null, "isAssigned": false});
+                          // Navigator.pop(this.context);
+                        },
+                        child: Text("Change Engineer"),
+                      ),
+                    ),
+                  ],
+                );
+              }
             }
-          }
-        });
+          });
+    } catch (e) {
+      print(e);
+      return Text("Error");
+    }
   }
 
   Widget mainPage(BuildContext context, DocumentSnapshot ds) {
@@ -360,7 +374,6 @@ class SecR extends State<SecondRoute> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        
         userDetails(context, ds),
         callInformation(context, ds),
         placeCallSection(context, ds),
