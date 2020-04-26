@@ -1,3 +1,4 @@
+import 'package:adminproto1/styles/widget/asset.dart';
 import 'package:adminproto1/views/assignEngineerList.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,26 +20,18 @@ class SecR extends State<SecondRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "call detail page",
-          style: TextStyle(color: Colors.black87, fontSize: 18),
+     appBar: defaultAppBar,
+      body: Padding(
+        padding: const EdgeInsets.only(top:8.0),
+        child: FutureBuilder(
+          future: onstart(widget.ds),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData)
+              return mainPage(context, snapshot.data);
+            else
+              return new CircularProgressIndicator();
+          },
         ),
-        iconTheme: IconThemeData(color: Colors.black87),
-        // title: Text(widget.ds.documentID,style: TextStyle(color: Colors.black87),),
-        backgroundColor: Color(0xFFEEEEEE),
-
-        centerTitle: true,
-        elevation: 0.0,
-      ),
-      body: FutureBuilder(
-        future: onstart(widget.ds),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData)
-            return mainPage(context, snapshot.data);
-          else
-            return new CircularProgressIndicator();
-        },
       ),
       backgroundColor: Color(0xFFEEEEEE),
     );

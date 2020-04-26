@@ -1,9 +1,9 @@
+import 'package:adminproto1/styles/widget/asset.dart';
 import 'package:adminproto1/styles/widget/btn.dart';
 import 'package:adminproto1/styles/widget/no.dart';
 import 'package:adminproto1/views/callRequest.dart';
 import 'package:adminproto1/views/completeList.dart';
 import 'package:adminproto1/views/cupertinoStyle/mainPage.dart';
-import 'package:adminproto1/views/cupertinoStyle/newdesign.dart';
 import 'package:adminproto1/views/ongoing.dart';
 import 'package:adminproto1/views/reportView.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,8 +12,9 @@ import 'package:flutter/material.dart';
 import 'models/local.dart';
 import 'views/engineerList.dart';
 
-void main() =>
-    runApp(MaterialApp(debugShowCheckedModeBanner: false, home: HomePage()));
+void main() => runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home:HomePage()));
 
 class HomePage extends StatefulWidget {
   @override
@@ -34,7 +35,14 @@ class MainPage extends State<HomePage> {
     //       snapshot.data.documents.map((doc) => doc = ds);
     // });
 
-    return mainscrn();
+    return  Scaffold(
+      appBar: defaultAppBar,
+      backgroundColor: CupertinoColors.secondarySystemBackground,
+      body: Padding(
+        padding: const EdgeInsets.only(top:8.0),
+        child: mainscrn(),
+      ),
+    );
   }
 
   Future<void> onStart(DocumentSnapshot dc) async {
@@ -56,18 +64,7 @@ class MainPage extends State<HomePage> {
   }
 
   Widget mainscrn() {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Lets Connect',
-          style: TextStyle(color: Colors.lightBlueAccent),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        centerTitle: true,
-      ),
-      backgroundColor: Colors.white,
-      body: StreamBuilder(
+    return  StreamBuilder(
           stream: Firestore.instance.collectionGroup('calls').snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -189,13 +186,12 @@ class MainPage extends State<HomePage> {
                       height: 50.0,
                       title: "Report",
                     ),
-                   
                   ],
                 ),
               );
             }
-          }),
-    );
+          });
+    
   }
 }
 

@@ -1,5 +1,4 @@
-import 'package:adminproto1/styles/theme/colorStyle.dart';
-import 'package:adminproto1/views/completeList.dart';
+
 import 'package:flutter/material.dart';
 
 class StatsCounter extends StatelessWidget {
@@ -21,7 +20,7 @@ class StatsCounter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       // semanticContainer: true,
-      elevation: 4.0,
+      elevation: 8.0,
       // width: size,
       // height: size,
       // decoration: BoxDecoration(

@@ -1,4 +1,5 @@
 import 'package:adminproto1/main.dart';
+import 'package:adminproto1/styles/widget/asset.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,22 +25,26 @@ class _ReportPage extends State<ReportPage>
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Scaffold(appBar: AppBar(), body: test(context)));
+    // return MaterialApp(home: Scaffold(appBar: AppBar(), body: test(context)));
+    return Scaffold(
+        appBar: defaultAppBar,
+        body: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: test(context),
+        ));
   }
 
   Widget test(BuildContext context) {
     Stream st;
     // var s =  Firestore.instance.collection('calls').where('model',isNull:true).snapshots();
-    if (_shorting != "") {
+    if (_shorting == "ALL") {
       st = Firestore.instance
           .collectionGroup('calls')
           .where('Date', isGreaterThanOrEqualTo: _startDate)
           .where('Date', isLessThanOrEqualTo: _endDate)
           .where('isComplete', isEqualTo: true)
           .snapshots();
-    } 
-    else
-     {
+    } else {
       st = Firestore.instance
           .collectionGroup('calls')
           .where('Tag', isEqualTo: _shorting)
@@ -60,45 +65,117 @@ class _ReportPage extends State<ReportPage>
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Card(
-                child: Row(
+                elevation: 12.0,
+                child: Column(
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("Select Shorting"),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Text("Select Shorting"),
+                        DropdownButton(
+                          items: <DropdownMenuItem>[
+                            DropdownMenuItem(
+                              child: Text("ALL"),
+                              value: 0,
+                            ),
+                            DropdownMenuItem(
+                              child: Text("Monitor"),
+                              value: 1,
+                            ),
+                            DropdownMenuItem(
+                              child: Text("MotherBoard"),
+                              value: 2,
+                            ),
+                            DropdownMenuItem(
+                              child: Text("Router"),
+                              value: 3,
+                            ),
+                            DropdownMenuItem(
+                              child: Text("Printer"),
+                              value: 4,
+                            ),
+                            DropdownMenuItem(
+                              child: Text("Tablets"),
+                              value: 5,
+                            ),
+                          ],
+                          value: _dropdownValue,
+                          onChanged: (value) {
+                            setState(() {
+                              _dropdownValue = value;
+                            });
+                            print(value);
+                          },
+                        ),
+                        Text(_count.toString()),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: DropdownButton(
-                        items: <DropdownMenuItem>[
-                          DropdownMenuItem(
-                            child: Text("Monitor"),
-                            value: 0,
-                          ),
-                          DropdownMenuItem(
-                            child: Text("MotherBoard"),
-                            value: 1,
-                          ),
-                          DropdownMenuItem(
-                            child: Text("Router"),
-                            value: 2,
-                          ),
-                          DropdownMenuItem(
-                            child: Text("Printer"),
-                            value: 3,
-                          ),
-                          DropdownMenuItem(
-                            child: Text("Tablets"),
-                            value: 4,
-                          ),
-                        ],
-                        value: 0,
-                        onChanged: (value) {
-                          _dropdownValue = value;
-                          print(value);
-                        },
-                      ),
+                    RaisedButton(
+                      onPressed: () {
+                        return showCupertinoModalPopup(
+                            context: context,
+                            builder: (context) {
+                              return Card(
+                                  child: SizedBox(
+                                height: 300,
+                                child: Column(
+                                  children: <Widget>[
+                                    Text("From",
+                                        style: TextStyle(
+                                            fontSize: 25,
+                                            color: Colors.lightBlueAccent)),
+                                    Expanded(
+                                      child: CupertinoDatePicker(
+                                          mode: CupertinoDatePickerMode.date,
+                                          maximumYear: DateTime.now().year,
+                                          minimumYear: 2019,
+                                          onDateTimeChanged: (val) {
+                                            _startDate = val;
+                                          }),
+                                    ),
+                                    Text(
+                                      "To",
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          color: Colors.lightBlueAccent),
+                                    ),
+                                    Expanded(
+                                      child: CupertinoDatePicker(
+                                          mode: CupertinoDatePickerMode.date,
+                                          maximumYear: DateTime.now().year,
+                                          minimumYear: 2019,
+                                          onDateTimeChanged: (val) {
+                                            _endDate = val;
+                                          }),
+                                    ),
+                                    FlatButton(
+                                      child: Text("OK"),
+                                      onPressed: () {
+                                        setState(() {
+                                          // _count=;
+                                          if (_dropdownValue == 0)
+                                            _shorting = "ALL";
+                                          if (_dropdownValue == 1)
+                                            _shorting = "Monitor";
+                                          if (_dropdownValue == 2)
+                                            _shorting = "MotherBoard";
+                                          if (_dropdownValue == 3)
+                                            _shorting = "Router";
+                                          if (_dropdownValue == 4)
+                                            _shorting = "Printer";
+                                          if (_dropdownValue == 5)
+                                            _shorting = "Tablets";
+                                        });
+                                        Navigator.pop(this.context);
+                                      },
+                                    )
+                                  ],
+                                ),
+                              ));
+                            });
+                      },
+                      child: Text("Select Date"),
                     ),
-                    Text(_count.toString())
                   ],
                 ),
               ),
@@ -106,63 +183,6 @@ class _ReportPage extends State<ReportPage>
             // SizedBox(
             //   height: MediaQuery.of(context).size.height*2/3,
             //   child:
-            FlatButton(
-              onPressed: () {
-                return showCupertinoModalPopup(
-                    context: context,
-                    builder: (context) {
-                      return Card(
-                          child: SizedBox(
-                        height: 300,
-                        child: Column(
-                          children: <Widget>[
-                            Text("From",
-                                style: TextStyle(
-                                    fontSize: 25,
-                                    color: Colors.lightBlueAccent)),
-                            Expanded(
-                              child: CupertinoDatePicker(
-                                  mode: CupertinoDatePickerMode.date,
-                                  onDateTimeChanged: (val) {
-                                    _startDate = val;
-                                  }),
-                            ),
-                            Text(
-                              "To",
-                              style: TextStyle(
-                                  fontSize: 25, color: Colors.lightBlueAccent),
-                            ),
-                            Expanded(
-                              child: CupertinoDatePicker(
-                                  mode: CupertinoDatePickerMode.date,
-                                  onDateTimeChanged: (val) {
-                                    _endDate = val;
-                                  }),
-                            ),
-                            FlatButton(
-                              child: Text("OK"),
-                              onPressed: () {
-                                setState(() {
-                                  // _count=;
-                                  if (_dropdownValue == 0)
-                                    _shorting = "Monitor";
-                                  if (_dropdownValue == 1)
-                                    _shorting = "MotherBoard";
-                                  if (_dropdownValue == 2) _shorting = "Router";
-                                  if (_dropdownValue == 3)
-                                    _shorting = "Printer";
-                                  if (_dropdownValue == 4)
-                                    _shorting = "Tablets";
-                                });
-                              },
-                            )
-                          ],
-                        ),
-                      ));
-                    });
-              },
-              child: Text("Select Date"),
-            ),
 
             Expanded(
               child: new ListView(

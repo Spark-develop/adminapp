@@ -1,8 +1,8 @@
+import 'package:adminproto1/styles/widget/asset.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'detailPage.dart';
 
 class CompleteList extends StatefulWidget {
   @override
@@ -14,8 +14,12 @@ class CompleteList extends StatefulWidget {
 class _CompleteList extends State<CompleteList> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Material(child: test(context));
+    return Scaffold(
+      appBar: defaultAppBar,
+      body: Padding(
+        padding: const EdgeInsets.only(top:8.0),
+        child: test(context),
+      ));
   }
 
   Widget test(BuildContext context) {

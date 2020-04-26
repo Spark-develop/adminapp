@@ -1,5 +1,6 @@
 import 'package:adminproto1/models/local.dart';
 import 'package:adminproto1/styles/theme/colorStyle.dart';
+import 'package:adminproto1/styles/widget/asset.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,15 +15,20 @@ class EngineerPage extends StatefulWidget {
 class _EngineerPage extends State<EngineerPage> {
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: StreamBuilder(
+    return Scaffold(
+      appBar: defaultAppBar,
+      backgroundColor: CupertinoColors.secondarySystemBackground,
+      body: Padding(
+        padding: const EdgeInsets.only(top:8.0),
+        child: StreamBuilder(
             stream: Firestore.instance.collection('engineers').snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (!snapshot.hasData) return new Text("There is no expense");
-              return new ListView(children: getExpenseItems(snapshot, context));
+              return Padding(
+                padding: const EdgeInsets.only(top:8.0),
+                child: new ListView(children: getExpenseItems(snapshot, context)),
+              );
             }),
       ),
     );

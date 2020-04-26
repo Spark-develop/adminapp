@@ -1,3 +1,5 @@
+import 'package:adminproto1/styles/widget/asset.dart';
+import 'package:adminproto1/views/detailPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +14,12 @@ class Ongoing extends StatefulWidget {
 class _Ongoing extends State<Ongoing> {
   @override
   Widget build(BuildContext context) {
-    return Material(child: test(context));
+    return Scaffold(
+      appBar: defaultAppBar,
+      body: Padding(
+        padding: const EdgeInsets.only(top:8.0),
+        child: test(context),
+      ));
   }
 
   Widget test(BuildContext context) {
@@ -40,15 +47,15 @@ class _Ongoing extends State<Ongoing> {
                 Icons.blur_on,
                 color: cs(doc.data["isAssigned"].toString()),
               ),
-              // onTap: () {
-              //   DocumentSnapshot ds = doc;
-              //   Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //           builder: (context) => SecondRoute(
-              //                 ds: ds,
-              //               )));
-              // },
+              onTap: () {
+                DocumentSnapshot ds = doc;
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SecondRoute(
+                              ds: ds,
+                            )));
+              },
             ))
         .toList();
   }

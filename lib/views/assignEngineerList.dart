@@ -1,5 +1,6 @@
 import 'package:adminproto1/models/local.dart';
 import 'package:adminproto1/styles/theme/colorStyle.dart';
+import 'package:adminproto1/styles/widget/asset.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +18,13 @@ class AssignEngineer extends StatefulWidget {
 class _AssignEngineer extends State<AssignEngineer> {
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Scaffold(
-        backgroundColor: bgColor,
-        body: StreamBuilder(
+    return Scaffold(
+      
+      appBar: defaultAppBar,
+      backgroundColor: bgColor,
+      body: Padding(
+        padding: const EdgeInsets.only(top:8.0),
+        child: StreamBuilder(
             stream: Firestore.instance
                 .collection('engineers')
                 .where('isAssigned', isEqualTo: false)
